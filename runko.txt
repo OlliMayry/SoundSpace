@@ -1,0 +1,22 @@
+/app
+  /(routes)
+    /home           → Etusivu (studioselaus)
+    /studio/[id]    → Studion sivu
+    /booking        → Varauslomake
+    /confirmation   → Vahvistus
+  /components
+    StudioCard.tsx
+    Header.tsx
+    Footer.tsx
+    BookingForm.tsx
+  /lib
+    api.ts          → API-kutsut (esim. Supabase, Firebase)
+  /styles
+    globals.css
+    theme.css
+
+/public
+  /images
+  favicon.ico
+
+.env.local          → Ympäristömuuttujat (esim. API-avaimet)
