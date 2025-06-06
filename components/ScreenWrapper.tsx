@@ -1,6 +1,5 @@
-// components/ScreenWrapper.tsx
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -10,10 +9,14 @@ type ScreenWrapperProps = {
 
 const ScreenWrapper = ({ children }: ScreenWrapperProps) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.outerContainer}>
       <Header />
-      <View style={styles.content}>{children}</View>
-      <Footer />
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.innerContent}>
+          {children}
+        </View>
+        <Footer />
+      </ScrollView>
     </View>
   );
 };
@@ -21,10 +24,15 @@ const ScreenWrapper = ({ children }: ScreenWrapperProps) => {
 export default ScreenWrapper;
 
 const styles = StyleSheet.create({
-  container: {
+  outerContainer: {
     flex: 1,
   },
-  content: {
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    paddingBottom: 40, // pieni väli footerin jälkeen, valinnainen
+  },
+  innerContent: {
     flex: 1,
     backgroundColor: '#fff',
   },

@@ -1,23 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../App'; // Tarkista polku
+import type { RootStackParamList } from '../App'; // Tarkista tämä polku
 
 const Header = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.header}>
-      {/* Vasemman puolen elementti vain tilan vuoksi, ei klikattava */}
-      <View style={styles.leftPlaceholder} />
-
-      <TouchableOpacity style={styles.titleContainer} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.title}>SoundSpace</Text>
+      {/* Vasemmalla logo */}
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.logo}>SoundSpace</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.bookingsButton} onPress={() => navigation.navigate('MyBookings')}>
-        <Text style={styles.bookingsText}>My Bookings</Text>
+      {/* Keskellä navigointilinkit */}
+      <View style={styles.navLinks}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.link}>Studios</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('MyBookings')}>
+          <Text style={styles.link}>Bookings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity /* onPress={() => navigation.navigate('About')} */>
+          <Text style={styles.link}>About</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Oikealla käyttäjäikoni */}
+      <TouchableOpacity /* onPress={() => navigation.navigate('Profile')} */>
+        <FontAwesome name="user-o" size={20} color="#333" />
       </TouchableOpacity>
     </View>
   );
@@ -28,36 +41,27 @@ export default Header;
 const styles = StyleSheet.create({
   header: {
     height: 60,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#f7f8f9',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
     paddingHorizontal: 16,
-    position: 'relative',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
-  leftPlaceholder: {
-    width: 80, // sama leveys kuin bookingsButton, jotta otsikko on keskellä
-  },
-  titleContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    pointerEvents: 'auto', // varmistaa että klikattavissa
-  },
-  title: {
-    color: '#fff',
-    fontSize: 20,
+  logo: {
+    fontSize: 18,
     fontWeight: 'bold',
+    color: 'purple',
   },
-  bookingsButton: {
-    padding: 8,
-    backgroundColor: '#005BBB',
-    borderRadius: 6,
+  navLinks: {
+    flexDirection: 'row',
+    gap: 20, // toimii uusimmissa RN-versioissa
   },
-  bookingsText: {
-    color: '#fff',
-    fontWeight: '600',
+  link: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#333',
   },
 });
 
